@@ -1,4 +1,49 @@
 
+
+lapply_id <- function(x, FUN = function(x, id) list(id, x)) {
+  # define IDs
+  if ( is.null(names(x)) ) {
+    vector_id <- seq_along(x)
+  } else {
+    vector_id <- names(x)
+  }
+  names(vector_id) <- vector_id
+  
+  # apply function
+  lapply(vector_id, function(id) FUN(x[[id]], id))
+  
+}
+
+normalize01 <- function(x) (x - min(x)) / (max(x) - min(x))
+
+remove_nulls <- function(x) {x[!sapply(x, is.null)]}
+
+name_vector_itself <- function(x) {names(x) <- x; x}
+
+
+#'
+#' build a formula object
+#'
+#'
+#' @param  features features
+#' @param  target = "" target value (optional)
+#'
+#'
+#' @return
+#' @export
+
+
+buildFormula <- function(
+  features, # features
+  target = "" # target value (optional)
+) {
+  formula(paste(
+    target, "~",
+    paste(features, collapse = " + ")
+  ))
+}
+
+
 #' Override the defaults in a list
 #' Given a list of default parameters and a list of new parameters, override the defaults. Useful when parsing arguments from the terminal.
 #'

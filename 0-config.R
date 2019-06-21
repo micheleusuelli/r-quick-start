@@ -21,14 +21,3 @@ invisible(sapply(files_to_source, source))
 
 par <- jsonlite::fromJSON("config/1-parameters.json")
 
-
-
-# define-data-sources -----------------------------------------------------
-
-xdf <- list(
-  raw = file.path(par$folder_data_processed, par$xdf_raw),
-  cleaned = file.path(par$folder_data_processed, par$xdf_cleaned)
-) %>% lapply(RxXdfData)
-
-
-
